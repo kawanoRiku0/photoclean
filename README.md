@@ -18,10 +18,10 @@ open ~/Pictures/photos/.photoclean/review.html # 確認して「plan.csv を保�
 uv run photoclean.py apply ~/Pictures/photos ~/Downloads/plan.csv
 ```
 
-1. `scan` は画像ごとの SHA1・pHash・シャープネス・EXIF・CLIP スコアを `.photoclean/cache.db` に保存します。2 回目以降は追加・変更されたファイルだけを解析します。
+1. `scan` は画像ごとの SHA1・pHash・シャープネス・EXIF・CLIP スコアを `.photoclean/cache.db` に保存します。2 回目以降は追加・変更されたファイルだけを解析し、消えたファイルはキャッシュから除きます。読めない画像は警告を出して飛ばします。
 2. `plan` はキャッシュだけを使うので数秒で終わります。閾値を変えて何度でも再実行できます。
 3. `review.html` では赤枠が移動、緑枠が残すです。クリックで切り替えます。重複は横一列が 1 グループで、どれを残すかを選べます。
-4. `apply` は削除せず `_trash/<理由>/` に移動します。移動の記録は `.photoclean/applied.csv` に残ります。Live Photo の `.MOV` や `.AAE` が同名で並んでいれば一緒に移動します。
+4. `apply` は削除せず `_trash/<理由>/` に移動します。移動の記録は `.photoclean/applied.csv` に残ります。Live Photo の `.MOV` や `.AAE` が同名で並んでいれば一緒に移動します。移動先に同名のファイルがあれば `IMG_1_1.jpeg` のように番号を付け、上書きはしません。対象フォルダの外や `_trash/` の中を指す行は無視します。
 
 `apply` に CSV を渡さない場合は `.photoclean/plan.csv`（レビュー前の全候補）が使われます。
 
